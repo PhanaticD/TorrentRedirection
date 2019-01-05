@@ -33,10 +33,10 @@ public class RedirectedTorrent implements Runnable {
 		Location tempLoc = torrent.getLocation();
 		torrent.setLocation(null); //Stops water returning to the player when remove() is called
 		torrent.remove(); //We are removing it but then creating it back later. This stops progress() from running
-		torrent.setLocation(tempLoc); //Restore the locatino as we need it later
+		torrent.setLocation(tempLoc); //Restore the location as we need it later
 		
 		for (Block b : launchedBlocks) { //Re-add all the temp blocks removed from torrent with remove()
-			trail.add(new TempBlock(b, Material.STATIONARY_WATER, (byte)0));
+			trail.add(new TempBlock(b, Material.WATER));
 		}
 		
 		TorrentRedirection.MANAGER.addTorrent(this);
@@ -68,7 +68,7 @@ public class RedirectedTorrent implements Runnable {
 			//System.out.println("Moving");
 			
 			if (b != torrent.getLocation().getBlock()) { //The block its in has changed - time for another temp block
-				trail.add(0, new TempBlock(torrent.getLocation().getBlock(), Material.STATIONARY_WATER, (byte)0));
+				trail.add(0, new TempBlock(torrent.getLocation().getBlock(), Material.WATER));
 				shouldMove = true;
 				//System.out.println("Adding to trail");
 			}
